@@ -4,7 +4,8 @@ My own implementation of the Android Game Infinite Loop
 ### Game Goal
 To have all ends of the loops connected by clicking on loops to change its orientation.
 
-### How It Will Work (This might or might not be the development plan)
+# How It Will Work (This might or might not be the development plan)
+
 ## Not So General Description
 * Each game will have a 2D Loop Array which will be checked for completeness after every action.
 * After a click, `MouseListener`'s `mousePressed` method will detect when a click has occured and return the click's x and y position. 
@@ -17,7 +18,6 @@ To have all ends of the loops connected by clicking on loops to change its orien
     * IF Pointer points outside the array i.e -1, or >= array size THEN return false
 * Return True
 * If True, Game Ends with Congratulations
-
 
 ## Kinds of Loops
 * Source Loop
