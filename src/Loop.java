@@ -52,7 +52,7 @@ public class Loop {
         return new Loop(LEFT,UP);
     }
     public static Loop iLoop(){
-        return new Loop(LEFT,RIGHT);
+        return new Loop(UP,DOWN);
     }
     public static Loop crossLoop(){
         return new Loop(LEFT,UP,RIGHT,DOWN);
@@ -61,7 +61,7 @@ public class Loop {
         return new Loop(LEFT,UP,RIGHT);
     }
     public static Loop sourceLoop(){
-        return new Loop(LEFT);
+        return new Loop(DOWN);
     }
 
 }

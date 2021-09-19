@@ -13,7 +13,7 @@ public class Game {
 
     public void run(){
         while(!isComplete()){
-
+            //wait for mouseInput
             display.repaint();
         }
     }
