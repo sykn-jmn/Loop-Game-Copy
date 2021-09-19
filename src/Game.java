@@ -1,5 +1,7 @@
 package src;
 
+import src.assets.Listener;
+
 import java.util.Random;
 
 public class Game {
@@ -9,23 +11,34 @@ public class Game {
     public Game(Loop[][] level){
         this.level = level;
         display = new Display(level);
+        display.addMouseListener(new Listener(this));
         check();
+    }
+
+    public void updateLoops(int x, int y){
+        x = display.getXIndex(x);
+        y = display.getYIndex(y);
+        if(level[x][y]!=null) level[x][y].rotate();
     }
 
     public void check(){
         display.repaint();
-        sleep(500);
-        if(isComplete()) System.exit(0);
+        if(isComplete()) {
+            System.out.println("Congratulationsssss!");
+            System.exit(0);
+        }
     }
 
     private boolean isComplete(){
         for(int y = 0; y<level[0].length; y++){
             for(int x = 0; x<level.length; x++){
                 Loop current = level[x][y];
-                if(current.pointsAt(Loop.DOWN) && !checkLoop(x,y+1,Loop.UP)) return false;
-                if(current.pointsAt(Loop.UP) && !checkLoop(x,y-1,Loop.DOWN)) return false;
-                if(current.pointsAt(Loop.RIGHT) && !checkLoop(x,y+1,Loop.LEFT)) return false;
-                if(current.pointsAt(Loop.LEFT) && !checkLoop(x,y+1,Loop.RIGHT)) return false;
+                if(current!=null) {
+                    if (current.pointsAt(Loop.DOWN) && !checkLoop(x, y + 1, Loop.UP)) return false;
+                    if (current.pointsAt(Loop.UP) && !checkLoop(x, y - 1, Loop.DOWN)) return false;
+                    if (current.pointsAt(Loop.RIGHT) && !checkLoop(x, y + 1, Loop.LEFT)) return false;
+                    if (current.pointsAt(Loop.LEFT) && !checkLoop(x, y + 1, Loop.RIGHT)) return false;
+                }
             }
         }
         return true;

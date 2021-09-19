@@ -23,6 +23,13 @@ public class Display extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public int getXIndex(int x){
+        return panel.getXIndex(x);
+    }
+    public int getYIndex(int y){
+        return panel.getYIndex(y);
+    }
+
     public void loadAssets(){
         try {
             BufferedImage[][] assets = new BufferedImage[5][4];
@@ -33,7 +40,7 @@ public class Display extends JFrame {
             int height = pipes.getHeight();
             int x = -width;
             for(int i = 0; i <2; i++)
-                assets[1][0] = pipes.getSubimage(x+=width,0,width,height);
+                assets[1][i] = pipes.getSubimage(x+=width,0,width,height);
             assets[1][2] = assets[1][0];
             assets[1][3] = assets[1][1];
             for(int i = 0; i <4; i++)
@@ -58,7 +65,7 @@ public class Display extends JFrame {
     static class DrawPane extends JPanel{
         private BufferedImage[][] assets = new BufferedImage[5][4];
         private Loop[][] loops;
-        private static final int OFFSET = 20;
+        public static final int OFFSET = 20;
         private int width;
 
         public DrawPane(Loop[][] loops){
@@ -70,6 +77,15 @@ public class Display extends JFrame {
             width = assets[0][0].getWidth();
         }
 
+        public int getXIndex(int x){
+            x = x-OFFSET-10;
+            return x/width;
+        }
+        public int getYIndex(int y){
+            y = y-OFFSET-OFFSET-10;
+            return y/width;
+        }
+
         public void paintComponent(Graphics g) {
             g.setColor(Color.BLACK);
             g.fillRect(0,0,1400,1000);
@@ -79,7 +95,6 @@ public class Display extends JFrame {
                         int type = loops[x][y].getType();
                         int orientation = loops[x][y].getOrientation();
                         g.drawImage(assets[type][orientation],(x*width)+OFFSET,(y*width)+OFFSET,null);
-                        System.out.println((x*width+OFFSET));
                     }
                 }
             }
