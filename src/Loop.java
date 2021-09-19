@@ -8,11 +8,18 @@ public class Loop {
     public static final int RIGHT = 2;
     public static final int DOWN = 3;
 
+    public static final int SOURCE_LOOP = 1;
+    public static final int I_LOOP = 2;
+    public static final int T_LOOP = 3;
+    public static final int L_LOOP = 4;
+    public static final int CROSS_LOOP = 5;
+
     private boolean[] pointsAt;
     private static final Random rand = new Random();
-
+    private int orientation;
 
     public Loop(int ... directions){
+        orientation = 0;
         pointsAt = new boolean[4];
         for(int direction: directions){
             pointsAt[direction] = true;
@@ -32,10 +39,13 @@ public class Loop {
             }
         }
         pointsAt = copy;
+        orientation = (orientation+1) % 4;
     }
 
     public static void randomize(Loop loop){
-        for(int i = 0; i <= rand.nextInt(4); i++) loop.rotate();
+        for(int i = 0; i <= rand.nextInt(4); i++) {
+            loop.rotate();
+        }
     }
 
     public static Loop lLoop(){

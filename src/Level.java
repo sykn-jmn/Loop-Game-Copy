@@ -20,11 +20,11 @@ public class Level {
             for(int x = 0; x < level.length; x++){
                 switch(level[x][y]){
                     case 0 -> loops[x][y] = null;
-                    case 1 -> loops[x][y] = Loop.sourceLoop();
-                    case 2 -> loops[x][y] = Loop.iLoop();
-                    case 3 -> loops[x][y] = Loop.tLoop();
-                    case 4 -> loops[x][y] = Loop.lLoop();
-                    case 5 -> loops[x][y] = Loop.crossLoop();
+                    case Loop.SOURCE_LOOP -> loops[x][y] = Loop.sourceLoop();
+                    case Loop.I_LOOP -> loops[x][y] = Loop.iLoop();
+                    case Loop.T_LOOP -> loops[x][y] = Loop.tLoop();
+                    case Loop.L_LOOP -> loops[x][y] = Loop.lLoop();
+                    case Loop.CROSS_LOOP -> loops[x][y] = Loop.crossLoop();
                 }
             }
         }
