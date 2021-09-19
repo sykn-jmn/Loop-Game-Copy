@@ -19,7 +19,7 @@ public class Level {
         for(int y = 0; y < level[0].length; y++){
             for(int x = 0; x < level.length; x++){
                 switch(level[x][y]){
-                    case 0 -> loops[x][y] = null;
+                    case 5 -> loops[x][y] = null;
                     case Loop.SOURCE_LOOP -> loops[x][y] = Loop.sourceLoop();
                     case Loop.I_LOOP -> loops[x][y] = Loop.iLoop();
                     case Loop.T_LOOP -> loops[x][y] = Loop.tLoop();

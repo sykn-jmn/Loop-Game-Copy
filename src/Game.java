@@ -8,14 +8,14 @@ public class Game {
 
     public Game(Loop[][] level){
         this.level = level;
-
+        display = new Display(level);
+        check();
     }
 
-    public void run(){
-        while(!isComplete()){
-            //wait for mouseInput
-            display.repaint();
-        }
+    public void check(){
+        display.repaint();
+        sleep(500);
+        if(isComplete()) System.exit(0);
     }
 
     private boolean isComplete(){
@@ -38,5 +38,13 @@ public class Game {
                 y < level[0].length &&
                 level[x][y] != null &&
                 level[x][y].pointsAt(direction);
+    }
+
+    private void sleep(int milli){
+        try {
+            Thread.sleep(milli);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

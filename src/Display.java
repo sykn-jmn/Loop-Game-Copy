@@ -10,13 +10,13 @@ import java.io.IOException;
 public class Display extends JFrame {
     DrawPane panel;
 
-    public Display(){
+    public Display(Loop[][] loops){
         super("Loop Game Copy");
 
-        this.setSize(1010,800);
+        this.setSize(700,720);
         this.setLocation(170,0);
 
-        panel = new DrawPane();
+        panel = new DrawPane(loops);
         loadAssets();
         setContentPane(panel);
         setVisible(true);
@@ -25,11 +25,7 @@ public class Display extends JFrame {
 
     public void loadAssets(){
         try {
-            BufferedImage[] sourceLoopAssets = new BufferedImage[4];
-            BufferedImage[] iLoopAssets = new BufferedImage[4];
-            BufferedImage[] tLoopAssets = new BufferedImage[4];
-            BufferedImage[] crossLoopAssets = new BufferedImage[4];
-            BufferedImage[] lLoopAssets = new BufferedImage[4];
+            BufferedImage[][] assets = new BufferedImage[5][4];
             BufferedImage pipes = ImageIO.read(new File("src/assets/pipes.png"));
             //get the third line of asset style
             pipes = pipes.getSubimage(0,(pipes.getHeight()/4)*2,pipes.getWidth(),pipes.getHeight()/4);
@@ -37,62 +33,59 @@ public class Display extends JFrame {
             int height = pipes.getHeight();
             int x = -width;
             for(int i = 0; i <2; i++)
-                iLoopAssets[0] = pipes.getSubimage(x+=width,0,width,height);
-            iLoopAssets[2] = iLoopAssets[0];
-            iLoopAssets[3] = iLoopAssets[1];
+                assets[1][0] = pipes.getSubimage(x+=width,0,width,height);
+            assets[1][2] = assets[1][0];
+            assets[1][3] = assets[1][1];
             for(int i = 0; i <4; i++)
-                lLoopAssets[i] = pipes.getSubimage(x+=width,0,width,height);
+                assets[3][i] = pipes.getSubimage(x+=width,0,width,height);
             for(int i = 0; i <4; i++)
-                sourceLoopAssets[i] = pipes.getSubimage(x+=width,0,width,height);
+                assets[0][i] = pipes.getSubimage(x+=width,0,width,height);
             x+=width;
             for(int i = 0; i <4; i++)
-                crossLoopAssets[i] = pipes.getSubimage(x,0,width,height);
+                assets[4][i] = pipes.getSubimage(x,0,width,height);
             for(int i = 0; i <4; i++)
-                tLoopAssets[i] = pipes.getSubimage(x+=width,0,width,height);
-            panel.setCrossLoopAssets(crossLoopAssets);
-            panel.setiLoopAssets(iLoopAssets);
-            panel.setlLoopAssets(lLoopAssets);
-            panel.setSourceLoopAssets(sourceLoopAssets);
-            panel.settLoopAssets(tLoopAssets);
+                assets[2][i] = pipes.getSubimage(x+=width,0,width,height);
+            panel.setAssets(assets);
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 
+
+
+
+
     static class DrawPane extends JPanel{
-        private BufferedImage[] sourceLoopAssets = new BufferedImage[4];
-        private BufferedImage[] iLoopAssets = new BufferedImage[4];
-        private BufferedImage[] tLoopAssets = new BufferedImage[4];
-        private BufferedImage[] crossLoopAssets = new BufferedImage[4];
-        private BufferedImage[] lLoopAssets = new BufferedImage[4];
+        private BufferedImage[][] assets = new BufferedImage[5][4];
+        private Loop[][] loops;
+        private static final int OFFSET = 20;
+        private int width;
 
+        public DrawPane(Loop[][] loops){
+            this.loops = loops;
+        }
 
+        public void setAssets(BufferedImage[][] assets){
+            this.assets = assets;
+            width = assets[0][0].getWidth();
+        }
 
         public void paintComponent(Graphics g) {
-            g.setColor(Color.WHITE);
+            g.setColor(Color.BLACK);
             g.fillRect(0,0,1400,1000);
+            for(int y = 0; y <loops[0].length; y++){
+                for(int x = 0; x<loops.length; x++){
+                    if(loops[x][y]!=null){
+                        int type = loops[x][y].getType();
+                        int orientation = loops[x][y].getOrientation();
+                        g.drawImage(assets[type][orientation],(x*width)+OFFSET,(y*width)+OFFSET,null);
+                        System.out.println((x*width+OFFSET));
+                    }
+                }
+            }
         }
 
 
-        public void setSourceLoopAssets(BufferedImage[] sourceLoopAssets) {
-            this.sourceLoopAssets = sourceLoopAssets;
-        }
-
-        public void setiLoopAssets(BufferedImage[] iLoopAssets) {
-            this.iLoopAssets = iLoopAssets;
-        }
-
-        public void settLoopAssets(BufferedImage[] tLoopAssets) {
-            this.tLoopAssets = tLoopAssets;
-        }
-
-        public void setCrossLoopAssets(BufferedImage[] crossLoopAssets) {
-            this.crossLoopAssets = crossLoopAssets;
-        }
-
-        public void setlLoopAssets(BufferedImage[] lLoopAssets) {
-            this.lLoopAssets = lLoopAssets;
-        }
     }
 }
 

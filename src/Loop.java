@@ -8,22 +8,30 @@ public class Loop {
     public static final int RIGHT = 2;
     public static final int DOWN = 3;
 
-    public static final int SOURCE_LOOP = 1;
-    public static final int I_LOOP = 2;
-    public static final int T_LOOP = 3;
-    public static final int L_LOOP = 4;
-    public static final int CROSS_LOOP = 5;
+    public static final int SOURCE_LOOP = 0;
+    public static final int I_LOOP = 1;
+    public static final int T_LOOP = 2;
+    public static final int L_LOOP = 3;
+    public static final int CROSS_LOOP = 4;
 
     private boolean[] pointsAt;
     private static final Random rand = new Random();
-    private int orientation;
+    private int orientation, type;
 
-    public Loop(int ... directions){
-        orientation = 0;
+    public Loop(int type, int ... directions){
+        this.type = type;
+        orientation = 3;
         pointsAt = new boolean[4];
         for(int direction: directions){
             pointsAt[direction] = true;
         }
+    }
+
+    public int getOrientation(){
+        return orientation;
+    }
+    public int getType(){
+        return type;
     }
 
     public boolean pointsAt(int direction){
@@ -49,19 +57,19 @@ public class Loop {
     }
 
     public static Loop lLoop(){
-        return new Loop(LEFT,UP);
+        return new Loop(L_LOOP,LEFT,UP);
     }
     public static Loop iLoop(){
-        return new Loop(UP,DOWN);
+        return new Loop(I_LOOP,UP,DOWN);
     }
     public static Loop crossLoop(){
-        return new Loop(LEFT,UP,RIGHT,DOWN);
+        return new Loop(CROSS_LOOP, LEFT,UP,RIGHT,DOWN);
     }
     public static Loop tLoop(){
-        return new Loop(LEFT,UP,RIGHT);
+        return new Loop(T_LOOP, LEFT,UP,RIGHT);
     }
     public static Loop sourceLoop(){
-        return new Loop(DOWN);
+        return new Loop(SOURCE_LOOP, DOWN);
     }
 
 }
