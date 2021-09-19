@@ -3,10 +3,10 @@ package src;
 import java.util.Random;
 
 public class Loop {
-    private static final int LEFT = 0;
-    private static final int UP = 1;
-    private static final int RIGHT = 2;
-    private static final int DOWN = 3;
+    public static final int LEFT = 0;
+    public static final int UP = 1;
+    public static final int RIGHT = 2;
+    public static final int DOWN = 3;
 
     private boolean[] pointsAt;
     private static final Random rand = new Random();
