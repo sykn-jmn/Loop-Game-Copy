@@ -4,9 +4,18 @@ import java.util.Random;
 
 public class Game {
     private Loop[][] level;
+    private Display display;
+
     public Game(Loop[][] level){
         this.level = level;
 
+    }
+
+    public void run(){
+        while(!isComplete()){
+
+            display.repaint();
+        }
     }
 
     private boolean isComplete(){
@@ -23,6 +32,11 @@ public class Game {
     }
 
     private boolean checkLoop(int x, int y, int direction){
-        return x >= 0 && x < level.length && y >= 0 && y < level[0].length && level[x][y] != null && level[x][y].pointsAt(direction);
+        return x >= 0 &&
+                x < level.length &&
+                y >= 0 &&
+                y < level[0].length &&
+                level[x][y] != null &&
+                level[x][y].pointsAt(direction);
     }
 }
