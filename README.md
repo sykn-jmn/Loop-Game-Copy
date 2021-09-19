@@ -26,3 +26,12 @@ To have all ends of the loops connected by clicking on loops to change its orien
 * L Loop
 * Cross Loop
 
+## Levels.txt
+* first two lines are the  width and height respectively
+* the following lines describe the level
+ * 0 for no Loop
+ * 1 for source Loop
+ * 2 for I Loop
+ * 3 for T Loop
+ * 4 for L Loop
+ * 5 for Cross Loop 
