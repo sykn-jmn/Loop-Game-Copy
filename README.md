@@ -21,8 +21,8 @@ To have all ends of the loops connected by clicking on loops to change its orien
 
 ## Kinds of Loops
 * Source Loop
-* Two Adjacent Loop
-* Three Loop
-* Two Opposite Loop
-* Four Loop
+* I Loop
+* T Loop
+* L Loop
+* Cross Loop
 
