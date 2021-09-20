@@ -32,9 +32,9 @@ https://user-images.githubusercontent.com/56058545/133954271-9350b4e1-0e17-4a7a-
 ## Levels.txt
 * first two lines are the  width and height respectively
 * the following lines describe the level
- * 0 for no Loop
- * 1 for source Loop
- * 2 for I Loop
- * 3 for T Loop
- * 4 for L Loop
- * 5 for Cross Loop 
+ * 5 for no Loop
+ * 0 for source Loop
+ * 1 for I Loop
+ * 2 for T Loop
+ * 3 for L Loop
+ * 4 for Cross Loop 
