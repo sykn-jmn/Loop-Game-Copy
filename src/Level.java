@@ -9,7 +9,6 @@ public class Level {
     ArrayList<int[][]> blueprints = new ArrayList<>();
 
 
-
     // creates a game level with Loops[][] using the int[][] blueprint
     public Loop[][] getLevel(int levelIndex){
 
@@ -30,6 +29,14 @@ public class Level {
         }
 
         return loops;
+    }
+
+    public static void randomizeAll(Loop[][] loops){
+        for(Loop[] out:loops){
+            for(Loop in: out){
+                if(in != null) Loop.randomize(in);
+            }
+        }
     }
 
     //loads the level blueprints from the Levels.txt file
@@ -62,8 +69,8 @@ public class Level {
     public void printBlueprint(){
         for(int[][] blueprint: blueprints){
             for(int y = 0; y <blueprint[0].length; y++){
-                for(int x = 0; x < blueprint.length; x++){
-                    System.out.print(blueprint[x][y]);
+                for (int[] ints : blueprint) {
+                    System.out.print(ints[y]);
                 }
                 System.out.println();
             }

@@ -14,13 +14,13 @@ public class Loop {
     public static final int L_LOOP = 3;
     public static final int CROSS_LOOP = 4;
 
-    private boolean[] pointsAt;
+    public boolean[] pointsAt;
     private static final Random rand = new Random();
     private int orientation, type;
 
     public Loop(int type, int ... directions){
         this.type = type;
-        orientation = 3;
+        orientation = 0;
         pointsAt = new boolean[4];
         for(int direction: directions){
             pointsAt[direction] = true;

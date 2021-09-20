@@ -13,8 +13,8 @@ public class Display extends JFrame {
     public Display(Loop[][] loops){
         super("Loop Game Copy");
 
-        this.setSize(700,720);
-        this.setLocation(170,0);
+        this.setSize(630,650);
+        this.setLocation(330,30);
 
         panel = new DrawPane(loops);
         loadAssets();
@@ -35,7 +35,6 @@ public class Display extends JFrame {
             BufferedImage[][] assets = new BufferedImage[5][4];
             BufferedImage pipes = ImageIO.read(new File("src/assets/pipes.png"));
             //get the third line of asset style
-            pipes = pipes.getSubimage(0,(pipes.getHeight()/4)*2,pipes.getWidth(),pipes.getHeight()/4);
             int width = pipes.getWidth()/15;
             int height = pipes.getHeight();
             int x = -width;
@@ -66,7 +65,7 @@ public class Display extends JFrame {
         private BufferedImage[][] assets = new BufferedImage[5][4];
         private Loop[][] loops;
         public static final int OFFSET = 20;
-        private int width;
+        private static final int WIDTH = 64;
 
         public DrawPane(Loop[][] loops){
             this.loops = loops;
@@ -74,27 +73,26 @@ public class Display extends JFrame {
 
         public void setAssets(BufferedImage[][] assets){
             this.assets = assets;
-            width = assets[0][0].getWidth();
         }
 
         public int getXIndex(int x){
             x = x-OFFSET-10;
-            return x/width;
+            return x/WIDTH;
         }
         public int getYIndex(int y){
             y = y-OFFSET-OFFSET-10;
-            return y/width;
+            return y/WIDTH;
         }
 
         public void paintComponent(Graphics g) {
-            g.setColor(Color.BLACK);
+            g.setColor(Color.decode("#333738"));
             g.fillRect(0,0,1400,1000);
             for(int y = 0; y <loops[0].length; y++){
                 for(int x = 0; x<loops.length; x++){
                     if(loops[x][y]!=null){
                         int type = loops[x][y].getType();
                         int orientation = loops[x][y].getOrientation();
-                        g.drawImage(assets[type][orientation],(x*width)+OFFSET,(y*width)+OFFSET,null);
+                        g.drawImage(assets[type][orientation],(x*WIDTH)+OFFSET,(y*WIDTH)+OFFSET,WIDTH,WIDTH,null);
                     }
                 }
             }

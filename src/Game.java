@@ -1,15 +1,12 @@
 package src;
 
-import src.assets.Listener;
-
-import java.util.Random;
-
 public class Game {
     private Loop[][] level;
     private Display display;
 
     public Game(Loop[][] level){
         this.level = level;
+        Level.randomizeAll(level);
         display = new Display(level);
         display.addMouseListener(new Listener(this));
         check();
@@ -34,23 +31,23 @@ public class Game {
             for(int x = 0; x<level.length; x++){
                 Loop current = level[x][y];
                 if(current!=null) {
-                    if (current.pointsAt(Loop.DOWN) && !checkLoop(x, y + 1, Loop.UP)) return false;
-                    if (current.pointsAt(Loop.UP) && !checkLoop(x, y - 1, Loop.DOWN)) return false;
-                    if (current.pointsAt(Loop.RIGHT) && !checkLoop(x, y + 1, Loop.LEFT)) return false;
-                    if (current.pointsAt(Loop.LEFT) && !checkLoop(x, y + 1, Loop.RIGHT)) return false;
+                    if (current.pointsAt(Loop.DOWN) && notAligned(x, y + 1, Loop.UP)) return false;
+                    if (current.pointsAt(Loop.UP) && notAligned(x, y - 1, Loop.DOWN)) return false;
+                    if (current.pointsAt(Loop.RIGHT) && notAligned(x+1, y, Loop.LEFT)) return false;
+                    if (current.pointsAt(Loop.LEFT) && notAligned(x-1, y, Loop.RIGHT)) return false;
                 }
             }
         }
         return true;
     }
 
-    private boolean checkLoop(int x, int y, int direction){
-        return x >= 0 &&
-                x < level.length &&
-                y >= 0 &&
-                y < level[0].length &&
-                level[x][y] != null &&
-                level[x][y].pointsAt(direction);
+    private boolean notAligned(int x, int y, int direction){
+        return x < 0 ||
+                x >= level.length ||
+                y < 0 ||
+                y >= level[0].length ||
+                level[x][y] == null ||
+                !level[x][y].pointsAt(direction);
     }
 
     private void sleep(int milli){

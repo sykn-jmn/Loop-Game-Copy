@@ -1,4 +1,4 @@
-package src.assets;
+package src;
 
 import src.Game;
 
