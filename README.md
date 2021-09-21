@@ -41,3 +41,4 @@ https://user-images.githubusercontent.com/56058545/133959568-a3a8fea2-4f5f-4d92-
 
 ## Challenges
 * Switching between main menu screen to level selecting scene and game scene with each scene loading the appropriate files.
+ * To solve this, I created a Scene interface that can easily be called by the drawing class to draw the appropriate scene.
