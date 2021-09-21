@@ -4,12 +4,15 @@ public class Game {
     private Loop[][] level;
     private Display display;
 
-    public Game(Loop[][] level){
+    public Game(Loop[][] level, Display display){
         this.level = level;
         Level.randomizeAll(level);
-        display = new Display(level);
+        this.display = display;
+
+        Scene gameScene = new GameScene(level);
+        display.changeScene(gameScene);
         display.addMouseListener(new Listener(this));
-        check();
+        display.repaint();
     }
 
     public void updateLoops(int x, int y){

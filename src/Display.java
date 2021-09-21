@@ -10,19 +10,20 @@ import java.io.IOException;
 public class Display extends JFrame {
     DrawPane panel;
 
-    public Display(Loop[][] loops){
+    public Display(){
         super("Loop Game Copy");
 
         this.setSize(630,650);
         this.setLocation(330,30);
 
-        setContentPane(panel);
+        panel = new DrawPane();
+        this.setContentPane(panel);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void setPanel(Scene scene){
-        panel = new DrawPane(scene);
+    public void changeScene(Scene scene){
+        panel.changeScene(scene);
     }
 
     public int getXIndex(int x){
@@ -33,27 +34,14 @@ public class Display extends JFrame {
     }
 
 
-
-
-
-
-
     static class DrawPane extends JPanel{
-        private BufferedImage[][] assets = new BufferedImage[5][4];
         public static final int OFFSET = 20;
         public static final int WIDTH = 64;
         Scene scene;
 
-        public DrawPane(Scene scene){
-            this.scene = scene;
-        }
 
         public void changeScene(Scene scene){
             this.scene = scene;
-        }
-
-        public void setAssets(BufferedImage[][] assets){
-            this.assets = assets;
         }
 
         public int getXIndex(int x){
@@ -66,7 +54,7 @@ public class Display extends JFrame {
         }
 
         public void paintComponent(Graphics g) {
-            scene.DrawScene(g);
+            if(scene!=null) scene.DrawScene(g);
         }
 
 
