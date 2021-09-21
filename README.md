@@ -4,6 +4,9 @@ My own implementation of the Android Game Infinite Loop
 ### Game Goal
 To have all ends of the loops connected by clicking on loops to change its orientation.
 
+https://user-images.githubusercontent.com/56058545/133959568-a3a8fea2-4f5f-4d92-bc7d-1ab5ab55acde.mp4
+
+
 # How It Will Work (This might or might not be the development plan)
 
 ## Not So General Description
@@ -29,9 +32,12 @@ To have all ends of the loops connected by clicking on loops to change its orien
 ## Levels.txt
 * first two lines are the  width and height respectively
 * the following lines describe the level
- * 0 for no Loop
- * 1 for source Loop
- * 2 for I Loop
- * 3 for T Loop
- * 4 for L Loop
- * 5 for Cross Loop 
+ * 5 for no Loop
+ * 0 for source Loop
+ * 1 for I Loop
+ * 2 for T Loop
+ * 3 for L Loop
+ * 4 for Cross Loop 
+
+## Challenges
+* Switching between main menu screen to level selecting scene and game scene with each scene loading the appropriate files.
