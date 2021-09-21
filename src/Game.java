@@ -3,21 +3,22 @@ package src;
 public class Game {
     private Loop[][] level;
     private Display display;
+    private GameScene scene;
 
     public Game(Loop[][] level, Display display){
         this.level = level;
         Level.randomizeAll(level);
         this.display = display;
 
-        Scene gameScene = new GameScene(level);
-        display.changeScene(gameScene);
+        scene = new GameScene(level);
+        display.changeScene(scene);
         display.addMouseListener(new Listener(this));
         display.repaint();
     }
 
     public void updateLoops(int x, int y){
-        x = display.getXIndex(x);
-        y = display.getYIndex(y);
+        x = scene.getXIndex(x);
+        y = scene.getYIndex(y);
         if(level[x][y]!=null) level[x][y].rotate();
     }
 

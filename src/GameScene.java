@@ -9,13 +9,24 @@ import java.io.IOException;
 public class GameScene implements Scene{
     BufferedImage[][] assets;
     Loop[][] loops;
+    final int WIDTH = 64;
     public GameScene(Loop[][] level){
         this.loops = level;
         loadAssets();
     }
 
+
+    public int getXIndex(int x){
+        x = x-OFFSET-10;
+        return x/WIDTH;
+    }
+    public int getYIndex(int y){
+        y = y-OFFSET-OFFSET-10;
+        return y/WIDTH;
+    }
+
     @Override
-    public void DrawScene(Graphics g) {
+    public void drawScene(Graphics g) {
         g.setColor(Color.decode("#333738"));
         g.fillRect(0,0,1400,1000);
         for(int y = 0; y <loops[0].length; y++){
