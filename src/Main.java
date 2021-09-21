@@ -7,7 +7,7 @@ public class Main {
         Level level = new Level();
         level.loadBlueprints();
 
-        new Game(level.getLevel(1));
+        new Game(level.getLevel(2));
     }
 
 }

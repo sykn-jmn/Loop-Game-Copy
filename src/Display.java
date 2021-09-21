@@ -16,11 +16,13 @@ public class Display extends JFrame {
         this.setSize(630,650);
         this.setLocation(330,30);
 
-        panel = new DrawPane(loops);
-        loadAssets();
         setContentPane(panel);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void setPanel(Scene scene){
+        panel = new DrawPane(scene);
     }
 
     public int getXIndex(int x){
@@ -30,32 +32,7 @@ public class Display extends JFrame {
         return panel.getYIndex(y);
     }
 
-    public void loadAssets(){
-        try {
-            BufferedImage[][] assets = new BufferedImage[5][4];
-            BufferedImage pipes = ImageIO.read(new File("src/assets/pipes.png"));
-            //get the third line of asset style
-            int width = pipes.getWidth()/15;
-            int height = pipes.getHeight();
-            int x = -width;
-            for(int i = 0; i <2; i++)
-                assets[1][i] = pipes.getSubimage(x+=width,0,width,height);
-            assets[1][2] = assets[1][0];
-            assets[1][3] = assets[1][1];
-            for(int i = 0; i <4; i++)
-                assets[3][i] = pipes.getSubimage(x+=width,0,width,height);
-            for(int i = 0; i <4; i++)
-                assets[0][i] = pipes.getSubimage(x+=width,0,width,height);
-            x+=width;
-            for(int i = 0; i <4; i++)
-                assets[4][i] = pipes.getSubimage(x,0,width,height);
-            for(int i = 0; i <4; i++)
-                assets[2][i] = pipes.getSubimage(x+=width,0,width,height);
-            panel.setAssets(assets);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
+
 
 
 
@@ -63,12 +40,16 @@ public class Display extends JFrame {
 
     static class DrawPane extends JPanel{
         private BufferedImage[][] assets = new BufferedImage[5][4];
-        private Loop[][] loops;
         public static final int OFFSET = 20;
-        private static final int WIDTH = 64;
+        public static final int WIDTH = 64;
+        Scene scene;
 
-        public DrawPane(Loop[][] loops){
-            this.loops = loops;
+        public DrawPane(Scene scene){
+            this.scene = scene;
+        }
+
+        public void changeScene(Scene scene){
+            this.scene = scene;
         }
 
         public void setAssets(BufferedImage[][] assets){
@@ -85,17 +66,7 @@ public class Display extends JFrame {
         }
 
         public void paintComponent(Graphics g) {
-            g.setColor(Color.decode("#333738"));
-            g.fillRect(0,0,1400,1000);
-            for(int y = 0; y <loops[0].length; y++){
-                for(int x = 0; x<loops.length; x++){
-                    if(loops[x][y]!=null){
-                        int type = loops[x][y].getType();
-                        int orientation = loops[x][y].getOrientation();
-                        g.drawImage(assets[type][orientation],(x*WIDTH)+OFFSET,(y*WIDTH)+OFFSET,WIDTH,WIDTH,null);
-                    }
-                }
-            }
+            scene.DrawScene(g);
         }
 
 
