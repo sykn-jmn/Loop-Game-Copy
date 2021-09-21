@@ -10,26 +10,43 @@ import java.io.IOException;
 
 public class LevelSelectorScene implements Scene {
     BufferedImage levelButton;
-    final int WIDTH = 100;
+    Display display;
+    Level levels;
+    final int WIDTH = 80;
+    final int DISTANCE = 115;
+    final int Y_OFFSET = 120;
+    final int X_OFFSET = 40;
+    final int STRING_X_OFFSET = 8;
+    final int STRING_Y_OFFSET = 30;
 
-    public LevelSelectorScene(){
-        Level level = new Level();
-        level.loadBlueprints();
+    public LevelSelectorScene(Display display){
+        loadAssets();
+        this.display = display;
+        display.changeScene(this);
+        display.repaint();
+        this.levels = new Level();
+        levels.loadBlueprints();
     }
 
+    public void loadGame(int level){
+        new GameScene(levels.getLevel(level-1),display, this);
+    }
 
     @Override
     public void drawScene(Graphics g) {
         g.setColor(Color.decode("#333738"));
         g.fillRect(0,0,1400,1000);
+        Font font = new Font("Verdana", Font.BOLD, 27);
         int level = 1;
-        for(int y = 0; y <5; y++){
+        for(int y = 0; y <4; y++){
             for(int x = 0; x<5; x++){
-                g.drawImage(levelButton,(x*WIDTH)+OFFSET,(y*WIDTH)+OFFSET,WIDTH,WIDTH,null);
-                g.drawString(""+level,(x*WIDTH)+OFFSET,(y*WIDTH)+OFFSET);
+                g.drawImage(levelButton,(x*DISTANCE)+X_OFFSET,(y*DISTANCE)+Y_OFFSET,WIDTH,WIDTH,null);
+                g.setColor(Color.WHITE);
+                g.setFont(font);
+                g.drawString(""+level,(x*DISTANCE)+X_OFFSET+STRING_X_OFFSET,(y*DISTANCE)+Y_OFFSET+STRING_Y_OFFSET);
+                level++;
             }
         }
-
     }
 
     @Override
@@ -39,5 +56,21 @@ public class LevelSelectorScene implements Scene {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void processClick(int x, int y) {
+        x = (x-X_OFFSET)/DISTANCE;
+        y = (y-Y_OFFSET)/DISTANCE;
+        loadGame(getLevel(x,y));
+    }
+
+    public int getLevel(int xIndex, int yIndex){
+        return xIndex + (5*yIndex)+1;
+    }
+
+    @Override
+    public void endScene() {
+
     }
 }

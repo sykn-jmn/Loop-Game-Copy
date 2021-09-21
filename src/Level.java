@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class Level {
     ArrayList<int[][]> blueprints = new ArrayList<>();
 
+    public Level(){
+        loadBlueprints();
+    }
 
     // creates a game level with Loops[][] using the int[][] blueprint
     public Loop[][] getLevel(int levelIndex){

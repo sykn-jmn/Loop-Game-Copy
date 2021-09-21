@@ -6,15 +6,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Listener implements MouseListener {
-    private Game game;
-    public Listener(Game game){
-        this.game = game;
+    private Scene scene;
+
+    public void changeScene(Scene scene){
+        this.scene = scene;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        game.updateLoops(e.getX(),e.getY());
-        game.check();
+        if(scene!=null) scene.processClick(e.getX(),e.getY());
     }
 
     @Override

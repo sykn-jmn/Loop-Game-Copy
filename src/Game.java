@@ -2,35 +2,19 @@ package src;
 
 public class Game {
     private Loop[][] level;
-    private Display display;
-    private GameScene scene;
 
-    public Game(Loop[][] level, Display display){
+    public Game(Loop[][] level){
         this.level = level;
         Level.randomizeAll(level);
-        this.display = display;
-
-        scene = new GameScene(level);
-        display.changeScene(scene);
-        display.addMouseListener(new Listener(this));
-        display.repaint();
     }
 
     public void updateLoops(int x, int y){
-        x = scene.getXIndex(x);
-        y = scene.getYIndex(y);
+        x = GameScene.getXIndex(x);
+        y = GameScene.getYIndex(y);
         if(level[x][y]!=null) level[x][y].rotate();
     }
 
-    public void check(){
-        display.repaint();
-        if(isComplete()) {
-            System.out.println("Congratulationsssss!");
-            System.exit(0);
-        }
-    }
-
-    private boolean isComplete(){
+    public boolean isComplete(){
         for(int y = 0; y<level[0].length; y++){
             for(int x = 0; x<level.length; x++){
                 Loop current = level[x][y];

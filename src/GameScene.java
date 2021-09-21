@@ -7,21 +7,34 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameScene implements Scene{
+    final static int OFFSET = Display.DrawPane.OFFSET;
+    final static int Y_OFFSET = 50;
+    Scene levelSelector;
     BufferedImage[][] assets;
+    BufferedImage backButton;
     Loop[][] loops;
-    final int WIDTH = 64;
-    public GameScene(Loop[][] level){
+    Display display;
+    final static int WIDTH = 64;
+    Game game;
+
+    public GameScene(Loop[][] level, Display display, Scene scene){
         this.loops = level;
+        game = new Game(level);
+        this.levelSelector = scene;
+
         loadAssets();
+        this.display = display;
+        display.changeScene(this);
+        display.repaint();
     }
 
 
-    public int getXIndex(int x){
+    public static int getXIndex(int x){
         x = x-OFFSET-10;
         return x/WIDTH;
     }
-    public int getYIndex(int y){
-        y = y-OFFSET-OFFSET-10;
+    public static int getYIndex(int y){
+        y = y-OFFSET-OFFSET-10-Y_OFFSET;
         return y/WIDTH;
     }
 
@@ -34,10 +47,11 @@ public class GameScene implements Scene{
                 if(loops[x][y]!=null){
                     int type = loops[x][y].getType();
                     int orientation = loops[x][y].getOrientation();
-                    g.drawImage(assets[type][orientation],(x*WIDTH)+OFFSET,(y*WIDTH)+OFFSET,WIDTH,WIDTH,null);
+                    g.drawImage(assets[type][orientation],(x*WIDTH)+OFFSET,(y*WIDTH)+OFFSET+Y_OFFSET,WIDTH,WIDTH,null);
                 }
             }
         }
+        g.drawImage(backButton,520,-5,85,70,null);
     }
 
     public void loadAssets(){
@@ -45,6 +59,7 @@ public class GameScene implements Scene{
             assets = new BufferedImage[5][4];
             BufferedImage pipes = ImageIO.read(new File("src/assets/pipes.png"));
             //get the third line of asset style
+            backButton = ImageIO.read(new File("src/assets/backButton.png"));
             int width = pipes.getWidth()/15;
             int height = pipes.getHeight();
             int x = -width;
@@ -64,5 +79,17 @@ public class GameScene implements Scene{
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void processClick(int x, int y) {
+        game.updateLoops(x,y);
+        if(game.isComplete()) endScene();
+        display.repaint();
+    }
+
+    @Override
+    public void endScene() {
+        display.changeScene(levelSelector);
     }
 }
