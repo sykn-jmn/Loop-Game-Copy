@@ -4,7 +4,8 @@ My own implementation of the Android Game Infinite Loop
 ### Game Goal
 To have all ends of the loops connected by clicking on loops to change its orientation.
 
-https://user-images.githubusercontent.com/56058545/133959568-a3a8fea2-4f5f-4d92-bc7d-1ab5ab55acde.mp4
+
+https://user-images.githubusercontent.com/56058545/134149912-40923fc0-a6d7-4e23-b650-4681c869ba46.mp4
 
 
 # How It Will Work (This might or might not be the development plan)
@@ -41,3 +42,5 @@ https://user-images.githubusercontent.com/56058545/133959568-a3a8fea2-4f5f-4d92-
 
 ## Challenges
 * Switching between main menu screen to level selecting scene and game scene with each scene loading the appropriate files.
+ * To solve this, I created a Scene interface that can easily be called by the drawing class to draw the appropriate scene.
+* Detecting clicks in the Level Selector Scene
