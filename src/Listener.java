@@ -4,8 +4,9 @@ import src.Game;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class Listener implements MouseListener {
+public class Listener implements MouseListener, MouseMotionListener {
     private Scene scene;
 
     public void changeScene(Scene scene){
@@ -19,7 +20,6 @@ public class Listener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
@@ -34,6 +34,16 @@ public class Listener implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if(scene!=null) scene.processDrag(e.getX(),e.getY());
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
 }

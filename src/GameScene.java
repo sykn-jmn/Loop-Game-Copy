@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameScene implements Scene{
-    final static int OFFSET = Display.DrawPane.OFFSET;
+    final static int OFFSET = 20;
     final static int Y_OFFSET = 50;
     Scene levelSelector;
     BufferedImage[][] assets;
@@ -90,6 +90,11 @@ public class GameScene implements Scene{
         game.updateLoops(x,y);
         if(game.isComplete()) endScene();
         display.repaint();
+    }
+
+    @Override
+    public void processDrag(int x, int y) {
+
     }
 
     @Override

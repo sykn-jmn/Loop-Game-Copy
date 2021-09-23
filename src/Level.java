@@ -12,10 +12,18 @@ public class Level {
         loadBlueprints();
     }
 
+    public int getNumLevels(){
+        return blueprints.size();
+    }
+
     // creates a game level with Loops[][] using the int[][] blueprint
     public Loop[][] getLevel(int levelIndex){
 
         int[][] level = blueprints.get(levelIndex);
+        return intToLoop(level);
+    }
+
+    public static Loop[][] intToLoop(int[][] level){
         Loop[][] loops = new Loop[level.length][level[0].length];
 
         for(int y = 0; y < level[0].length; y++){
@@ -49,15 +57,10 @@ public class Level {
             String line;
 
             while ((line = br.readLine()) != null) {
-
-                int width = line.charAt(0)-48;
-                line = br.readLine();
-                int height = line.charAt(0)-48;
-                int[][] level = new int[width][height];
-
-                for(int y = 0; y < height; y++){
+                int[][] level = new int[9][9];
+                for(int y = 0; y < 9; y++){
                     line = br.readLine();
-                    for(int x = 0; x < width; x++){
+                    for(int x = 0; x < 9; x++){
                         level[x][y] = line.charAt(x)-48;
                     }
                 }

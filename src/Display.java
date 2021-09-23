@@ -17,6 +17,7 @@ public class Display extends JFrame {
 
         listener = new Listener();
         addMouseListener(listener);
+        addMouseMotionListener(listener);
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,7 +30,6 @@ public class Display extends JFrame {
 
 
     static class DrawPane extends JPanel{
-        public static final int OFFSET = 20;
         Scene scene;
 
 

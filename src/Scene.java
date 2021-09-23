@@ -10,5 +10,6 @@ public interface Scene {
 
     void processClick(int x, int y);
 
+    void processDrag(int x, int y);
     void endScene();
 }

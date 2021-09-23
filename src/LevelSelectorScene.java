@@ -25,7 +25,6 @@ public class LevelSelectorScene implements Scene {
         display.changeScene(this);
         display.repaint();
         this.levels = new Level();
-        levels.loadBlueprints();
     }
 
     public void loadGame(int level){
@@ -38,6 +37,7 @@ public class LevelSelectorScene implements Scene {
         g.fillRect(0,0,1400,1000);
         Font font = new Font("Verdana", Font.BOLD, 27);
         int level = 1;
+        outerLoop:
         for(int y = 0; y <4; y++){
             for(int x = 0; x<5; x++){
                 g.drawImage(levelButton,(x*DISTANCE)+X_OFFSET,(y*DISTANCE)+Y_OFFSET,WIDTH,WIDTH,null);
@@ -45,6 +45,7 @@ public class LevelSelectorScene implements Scene {
                 g.setFont(font);
                 g.drawString(""+level,(x*DISTANCE)+X_OFFSET+STRING_X_OFFSET,(y*DISTANCE)+Y_OFFSET+STRING_Y_OFFSET);
                 level++;
+                if(level>levels.getNumLevels()) break outerLoop;
             }
         }
     }
@@ -63,6 +64,11 @@ public class LevelSelectorScene implements Scene {
         x = (x-X_OFFSET)/DISTANCE;
         y = (y-Y_OFFSET)/DISTANCE;
         loadGame(getLevel(x,y));
+    }
+
+    @Override
+    public void processDrag(int x, int y) {
+
     }
 
     public int getLevel(int xIndex, int yIndex){
