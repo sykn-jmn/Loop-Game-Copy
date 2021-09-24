@@ -4,9 +4,13 @@ My own implementation of the Android Game Infinite Loop
 ### Game Goal
 To have all ends of the loops connected by clicking on loops to change its orientation.
 
+### Game Demo
 
 https://user-images.githubusercontent.com/56058545/134149912-40923fc0-a6d7-4e23-b650-4681c869ba46.mp4
 
+### Level Maker Demo
+
+https://user-images.githubusercontent.com/56058545/134496734-ae19fced-60d0-4656-85de-ec8bf172ca42.mp4
 
 # How It Will Work (This might or might not be the development plan)
 
