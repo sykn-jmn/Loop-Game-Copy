@@ -6,11 +6,8 @@ To have all ends of the loops connected by clicking on loops to change its orien
 
 ### Game Demo
 
-https://user-images.githubusercontent.com/56058545/134149912-40923fc0-a6d7-4e23-b650-4681c869ba46.mp4
+https://user-images.githubusercontent.com/56058545/134626253-e8746704-f5db-4b84-874d-f3ea86cff597.mp4
 
-### Level Maker Demo
-
-https://user-images.githubusercontent.com/56058545/134496734-ae19fced-60d0-4656-85de-ec8bf172ca42.mp4
 
 # How It Will Work (This might or might not be the development plan)
 
