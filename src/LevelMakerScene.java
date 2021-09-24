@@ -19,8 +19,10 @@ public class LevelMakerScene implements Scene {
     private final Display display;
     private final boolean[][][][] map = new boolean[9][9][NUM_PIXELS_SIDE][NUM_PIXELS_SIDE];
     private BufferedImage play,backButton;
+    private Scene prevScene;
 
-    public LevelMakerScene(Display display){
+    public LevelMakerScene(Display display, Scene prevScene){
+        this.prevScene = prevScene;
         display.changeScene(this);
         this.display=display;
         loadAssets();
@@ -111,7 +113,8 @@ public class LevelMakerScene implements Scene {
 
     @Override
     public void endScene() {
-        System.exit(0);
+        display.changeScene(prevScene);
+        display.repaint();
     }
 
 

@@ -9,9 +9,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class LevelSelectorScene implements Scene {
-    BufferedImage levelButton;
+    BufferedImage levelButton, backButton;
     Display display;
     Level levels;
+    private Scene prevScene;
     final int WIDTH = 80;
     final int DISTANCE = 115;
     final int Y_OFFSET = 120;
@@ -19,7 +20,8 @@ public class LevelSelectorScene implements Scene {
     final int STRING_X_OFFSET = 8;
     final int STRING_Y_OFFSET = 30;
 
-    public LevelSelectorScene(Display display){
+    public LevelSelectorScene(Display display, Scene scene){
+        this.prevScene = scene;
         loadAssets();
         this.display = display;
         display.changeScene(this);
@@ -35,6 +37,7 @@ public class LevelSelectorScene implements Scene {
     public void drawScene(Graphics g) {
         g.setColor(Color.decode("#333738"));
         g.fillRect(0,0,1400,1000);
+        g.drawImage(backButton,520,-5,85,70,null);
         Font font = new Font("Verdana", Font.BOLD, 27);
         int level = 1;
         outerLoop:
@@ -54,6 +57,7 @@ public class LevelSelectorScene implements Scene {
     public void loadAssets() {
         try {
             levelButton = ImageIO.read(new File("src/assets/levelButtons.png"));
+            backButton = ImageIO.read(new File("src/assets/backButton.png"));
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -61,9 +65,17 @@ public class LevelSelectorScene implements Scene {
 
     @Override
     public void processClick(int x, int y) {
-        x = (x-X_OFFSET)/DISTANCE;
-        y = (y-Y_OFFSET)/DISTANCE;
-        loadGame(getLevel(x,y));
+        if(clickedBack(x,y)){
+            endScene();
+        }else {
+            x = (x - X_OFFSET) / DISTANCE;
+            y = (y - Y_OFFSET) / DISTANCE;
+            loadGame(getLevel(x, y));
+        }
+    }
+
+    private boolean clickedBack(int x, int y){
+        return x>=520 && x<=520+85 && y>=-5+28 && y<=-5+70+28;
     }
 
     @Override
@@ -77,6 +89,7 @@ public class LevelSelectorScene implements Scene {
 
     @Override
     public void endScene() {
-
+        display.changeScene(prevScene);
+        display.repaint();
     }
 }
