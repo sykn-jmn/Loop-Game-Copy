@@ -83,13 +83,17 @@ public class GameScene implements Scene{
 
     @Override
     public void processClick(int x, int y) {
-        if(y<=Y_OFFSET+OFFSET && x>= 520) {
+        if(clickedBack(x,y)) {
             endScene();
             return;
         }
         game.updateLoops(x,y);
         if(game.isComplete()) endScene();
         display.repaint();
+    }
+
+    private boolean clickedBack(int x, int y){
+        return x>=520 && x<=520+85 && y>=-5+28 && y<=-5+70+28;
     }
 
     @Override

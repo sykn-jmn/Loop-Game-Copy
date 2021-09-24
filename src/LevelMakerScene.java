@@ -4,8 +4,11 @@ import src.Display;
 import src.Loop;
 import src.Scene;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.util.Arrays;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class LevelMakerScene implements Scene {
     final static int OFFSET = 20;
@@ -13,12 +16,15 @@ public class LevelMakerScene implements Scene {
     final static int WIDTH = 64;
     private static final int NUM_PIXELS_SIDE = 8;
     private static final int PIXEL_WIDTH = WIDTH/NUM_PIXELS_SIDE;
-    private Display display;
-    private boolean[][][][] map = new boolean[9][9][NUM_PIXELS_SIDE][NUM_PIXELS_SIDE];
+    private final Display display;
+    private final boolean[][][][] map = new boolean[9][9][NUM_PIXELS_SIDE][NUM_PIXELS_SIDE];
+    private BufferedImage play,backButton;
 
     public LevelMakerScene(Display display){
         display.changeScene(this);
         this.display=display;
+        loadAssets();
+        display.repaint();
     }
 
     @Override
@@ -26,6 +32,8 @@ public class LevelMakerScene implements Scene {
         g.setColor(Color.decode("#333738"));
         g.fillRect(0,0,1400,1000);
         g.setColor(Color.WHITE);
+        g.drawImage(play,243,15,120,44,null);
+        g.drawImage(backButton,520,-5,85,70,null);
         for(int x = 0; x<10; x++){
             g.drawLine(x*WIDTH+OFFSET,OFFSET+Y_OFFSET,x*WIDTH+OFFSET,OFFSET+Y_OFFSET+(WIDTH*9));
         }
@@ -61,13 +69,25 @@ public class LevelMakerScene implements Scene {
 
     @Override
     public void loadAssets() {
-
+        try {
+            play = ImageIO.read(new File("src/assets/play.png"));
+            backButton = ImageIO.read(new File("src/assets/backButton.png"));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void processClick(int x, int y) {
+        if(clickedBack(x,y)) {
+            endScene();
+            return;
+        }else if (clickedPlay(x,y)){
+            new GameScene(Level.intToLoop(getLevel()),display,this);
+        }
         processDrag(x,y);
     }
+
 
     @Override
     public void processDrag(int x, int y) {
@@ -78,17 +98,14 @@ public class LevelMakerScene implements Scene {
 
             map[x/WIDTH][y/WIDTH][(x%WIDTH)/PIXEL_WIDTH][(y%WIDTH)/PIXEL_WIDTH]=true;
             display.repaint();
-        }else{
-            System.out.println("Outside");
-            GameScene gameScene = new GameScene(Level.intToLoop(getLevel()),display,this);
         }
     }
 
     public boolean outside(int x, int y){
-        return x<OFFSET ||
-                x>WIDTH*9+OFFSET||
-                y<OFFSET+Y_OFFSET||
-                y>WIDTH*9+OFFSET+Y_OFFSET;
+        return x<OFFSET+5 ||
+                x>WIDTH*9+OFFSET+5||
+                y<OFFSET+Y_OFFSET+28||
+                y>WIDTH*9+OFFSET+Y_OFFSET+28;
 
     }
 
@@ -97,6 +114,14 @@ public class LevelMakerScene implements Scene {
         System.exit(0);
     }
 
+
+    private boolean clickedPlay(int x, int y){
+        return x>=243 && x<=243+120 && y>=15+28 && y<=15+44+28;
+    }
+
+    private boolean clickedBack(int x, int y){
+        return x>=520 && x<=520+85 && y>=-5+28 && y<=-5+70+28;
+    }
 
     private int checkDirections(boolean[][] drawing){
         boolean north = false;
